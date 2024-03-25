@@ -10,16 +10,15 @@ export const MortgageCalculator = () => {
   const [error, setError] = useState('');
 
   const calculateMonthlyPayment = () => {
-
     setError(''); // Clear any previous errors
 
     // Parse input values
-    const principalAmount = parseFloat(principal) || 0;
-    const annualInterestRate = parseFloat(interestRate) || 0;
-    const loanTermYears = parseFloat(loanTerm) || 0;
+    const principalAmount = parseFloat(principal);
+    const annualInterestRate = parseFloat(interestRate);
+    const loanTermYears = parseFloat(loanTerm);
 
     // Validate input values
-    if (principalAmount <= 0 || annualInterestRate <= 0 || loanTermYears <= 0) {
+    if (isNaN(principalAmount) || isNaN(annualInterestRate) || isNaN(loanTermYears) || principalAmount <= 0 || annualInterestRate <= 0 || loanTermYears <= 0) {
       setError('Please enter positive values for all fields.');
       return;
     }
@@ -33,11 +32,11 @@ export const MortgageCalculator = () => {
       (principalAmount * 
        interestPerMonth * 
        Math.pow(1 + interestPerMonth, totalLoanMonths)) /
-      (Math.pow(1 + interestPerMonth, totalLoanMonths) - 1);
+      (Math.pow(1 + interestPerMonth, totalLoanMonths) - 1); 
 
     // Update the monthly payment state with the result
     setMonthlyPayment(monthlyPaymentCalculation.toFixed(2));
-
+  
   };
 
   return (
