@@ -1,24 +1,36 @@
-// app/layout.tsx
+import { Roboto } from "next/font/google"; // Import Roboto font
+import "./globals.css";
+import type { Metadata } from "next";
 
-import React from 'react';
+// Initialize Roboto with the correct subset for preloading
+const customFont = Roboto({ style: 'normal', weight: '400', subsets: ['latin'] });
 
-// Typing the props that the component receives
-interface LayoutProps {
-  children: React.ReactNode; // This type is suitable for anything that can be rendered: numbers, strings, elements, or an array containing these types.
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-  return (
-    <>
-      <header>
-        {/* Your header content */}
-      </header>
-      <main>{children}</main>
-      <footer>
-        {/* Your footer content */}
-      </footer>
-    </>
-  );
+export const metadata: Metadata = {
+  title: "Mortgage Calculator App",
+  description: "Easily calculate your mortgage payments",
 };
 
-export default Layout;
+export default function AppLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <head>
+        <title> Mortgage Calculator App </title> 
+        <meta name="description"/> 
+      </head>
+      <body className={customFont.className}>
+        <header>
+        </header>
+        <main>
+          {children} 
+        </main>
+        <footer>
+          <p>© {new Date().getFullYear()} Mortgage Calculator App. All rights reserved.</p>
+        </footer>
+      </body>
+    </html>
+  );
+}
